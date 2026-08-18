@@ -2,7 +2,7 @@
 
 
 {% block title %}
-    Login | Todo
+    Register | Todo
 {% endblock %}
 
 
@@ -10,10 +10,10 @@
 
     <div class="card auth-card">
 
-        <h1>Welcome Back</h1>
+        <h1>Create Account</h1>
 
         <p class="subtitle">
-            Login to manage your tasks.
+            Create an account to manage your tasks.
         </p>
 
         <form method="post" class="form">
@@ -23,16 +23,17 @@
             {{ form.as_p }}
 
             <button type="submit" class="btn btn-primary">
-                Login
+                Register
             </button>
 
         </form>
+
         <p class="auth-switch">
-    Don't have an account?
-    <a href="{% url 'accounts:register' %}">
-        Create account
-    </a>
-</p>
+            Already have an account?
+            <a href="{% url 'accounts:login' %}">
+                Login
+            </a>
+        </p>
 
     </div>
 
