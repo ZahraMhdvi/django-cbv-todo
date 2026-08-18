@@ -1,29 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Delete Task</title>
-</head>
+{% extends "base.html" %}
 
-<body>
 
-    <h1>Delete Task</h1>
+{% block title %}
+    Delete Task
+{% endblock %}
 
-    <p>
-        Are you sure you want to delete "{{ object.title }}"?
-    </p>
 
-    <form method="post">
-        {% csrf_token %}
+{% block content %}
 
-        <button type="submit">
-            Delete
-        </button>
-    </form>
+    <div class="card">
 
-    <a href="{% url 'tasks:task-list' %}">
-        Cancel
-    </a>
+        <h1>Delete Task</h1>
 
-</body>
-</html>
+        <p class="subtitle">
+            Are you sure you want to delete
+            <strong>{{ object.title }}</strong>?
+        </p>
+
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            <button type="submit" class="btn btn-danger">
+                Delete
+            </button>
+
+        </form>
+
+
+        <a
+            href="{% url 'tasks:task-list' %}"
+            class="back-link"
+        >
+            Cancel
+        </a>
+
+    </div>
+
+{% endblock %}
