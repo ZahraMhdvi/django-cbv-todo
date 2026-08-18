@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Tasks</title>
+</head>
+
+<body>
+
+    <h1>My Tasks</h1>
+
+    <p>{{ request.user.email }}</p>
+
+    <form method="post" action="{% url 'accounts:logout' %}">
+        {% csrf_token %}
+        <button type="submit">Logout</button>
+    </form>
+
+    <hr>
+
+    {% for task in tasks %}
+        <p>
+            {{ task.title }}
+
+            {% if task.is_done %}
+                - Done
+            {% endif %}
+        </p>
+
+    {% empty %}
+        <p>No tasks yet.</p>
+    {% endfor %}
+
+</body>
+</html>
