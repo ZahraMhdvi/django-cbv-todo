@@ -1,63 +1,121 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>My Tasks</title>
-</head>
+{% extends "base.html" %}
 
-<body>
 
-    <h1>My Tasks</h1>
+{% block title %}
+    My Tasks
+{% endblock %}
 
-    <p>{{ request.user.email }}</p>
 
-    <a href="{% url 'tasks:task-create' %}">
-        Add Task
-    </a>
+{% block content %}
 
-    <form method="post" action="{% url 'accounts:logout' %}">
-        {% csrf_token %}
-        <button type="submit">Logout</button>
-    </form>
+    <div class="todo-card">
 
-    <hr>
+        <div class="todo-header">
 
-    {% for task in tasks %}
+            <div>
+                <h1>My Tasks</h1>
 
-        <div>
+                <p class="subtitle">
+                    {{ request.user.email }}
+                </p>
+            </div>
 
-            {% if task.is_done %}
-                <del>{{ task.title }}</del>
-                <span>Done</span>
-            {% else %}
-                <span>{{ task.title }}</span>
+            <form
+                method="post"
+                action="{% url 'accounts:logout' %}"
+            >
+                {% csrf_token %}
 
-                <form
-                    method="post"
-                    action="{% url 'tasks:task-done' task.pk %}"
-                >
-                    {% csrf_token %}
-                    <button type="submit">
-                        Done
-                    </button>
-                </form>
-            {% endif %}
-
-            <a href="{% url 'tasks:task-update' task.pk %}">
-                Edit
-            </a>
-
-            <a href="{% url 'tasks:task-delete' task.pk %}">
-                Delete
-            </a>
+                <button type="submit" class="btn btn-light">
+                    Logout
+                </button>
+            </form>
 
         </div>
 
-    {% empty %}
 
-        <p>No tasks yet.</p>
+        <a
+            href="{% url 'tasks:task-create' %}"
+            class="btn btn-primary add-task"
+        >
+            + Add Task
+        </a>
 
-    {% endfor %}
 
-</body>
-</html>
+        <div class="task-list">
+
+            {% for task in tasks %}
+
+                <div class="task-item">
+
+                    <div class="task-title">
+
+                        {% if task.is_done %}
+
+                            <span class="done">
+                                {{ task.title }}
+                            </span>
+
+                        {% else %}
+
+                            {{ task.title }}
+
+                        {% endif %}
+
+                    </div>
+
+
+                    <div class="task-actions">
+
+                        {% if not task.is_done %}
+
+                            <form
+                                method="post"
+                                action="{% url 'tasks:task-done' task.pk %}"
+                            >
+                                {% csrf_token %}
+
+                                <button
+                                    type="submit"
+                                    class="btn btn-success"
+                                >
+                                    Done
+                                </button>
+
+                            </form>
+
+                        {% endif %}
+
+
+                        <a
+                            href="{% url 'tasks:task-update' task.pk %}"
+                            class="btn btn-secondary"
+                        >
+                            Edit
+                        </a>
+
+
+                        <a
+                            href="{% url 'tasks:task-delete' task.pk %}"
+                            class="btn btn-danger"
+                        >
+                            Delete
+                        </a>
+
+                    </div>
+
+                </div>
+
+            {% empty %}
+
+                <div class="empty-state">
+                    You don't have any tasks yet.
+                </div>
+
+            {% endfor %}
+
+        </div>
+
+    </div>
+
+{% endblock %}

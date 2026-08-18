@@ -1,21 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Login | Todo</title>
-</head>
+{% extends "base.html" %}
 
-<body>
 
-    <h1>Login</h1>
+{% block title %}
+    Login | Todo
+{% endblock %}
 
-    <form method="post">
-        {% csrf_token %}
 
-        {{ form.as_p }}
+{% block content %}
 
-        <button type="submit">Login</button>
-    </form>
+    <div class="card auth-card">
 
-</body>
-</html>
+        <h1>Welcome Back</h1>
+
+        <p class="subtitle">
+            Login to manage your tasks.
+        </p>
+
+        <form method="post" class="form">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button type="submit" class="btn btn-primary">
+                Login
+            </button>
+
+        </form>
+
+    </div>
+
+{% endblock %}
