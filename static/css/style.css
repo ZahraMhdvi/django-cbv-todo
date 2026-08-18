@@ -375,3 +375,19 @@ h1 {
         padding: 24px 16px;
     }
 }
+
+.auth-switch {
+    margin-top: 24px;
+    margin-bottom: 0;
+    text-align: center;
+    color: #8d7b98;
+}
+
+.auth-switch a {
+    color: #8750a3;
+    font-weight: 600;
+}
+
+.auth-switch a:hover {
+    color: #6f3c8f;
+}
