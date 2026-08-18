@@ -11,6 +11,10 @@
 
     <p>{{ request.user.email }}</p>
 
+    <a href="{% url 'tasks:task-create' %}">
+        Add Task
+    </a>
+
     <form method="post" action="{% url 'accounts:logout' %}">
         {% csrf_token %}
         <button type="submit">Logout</button>
@@ -19,16 +23,40 @@
     <hr>
 
     {% for task in tasks %}
-        <p>
-            {{ task.title }}
+
+        <div>
 
             {% if task.is_done %}
-                - Done
+                <del>{{ task.title }}</del>
+                <span>Done</span>
+            {% else %}
+                <span>{{ task.title }}</span>
+
+                <form
+                    method="post"
+                    action="{% url 'tasks:task-done' task.pk %}"
+                >
+                    {% csrf_token %}
+                    <button type="submit">
+                        Done
+                    </button>
+                </form>
             {% endif %}
-        </p>
+
+            <a href="{% url 'tasks:task-update' task.pk %}">
+                Edit
+            </a>
+
+            <a href="{% url 'tasks:task-delete' task.pk %}">
+                Delete
+            </a>
+
+        </div>
 
     {% empty %}
+
         <p>No tasks yet.</p>
+
     {% endfor %}
 
 </body>
